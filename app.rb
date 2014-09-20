@@ -1,12 +1,13 @@
 require 'rubygems'
 require 'sinatra/base'
 require 'sinatra/reloader'
+require 'slim'
 
 class MyApp < Sinatra::Base
-    register Sinatra::Reloader
+  register Sinatra::Reloader
 
   get '/' do
-    'Hello world yo 2!'
+    slim :index
   end
 
 end
