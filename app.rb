@@ -6,7 +6,7 @@ class MyApp < Sinatra::Base
     register Sinatra::Reloader
 
   get '/' do
-    'Hello world yo!'
+    'Hello world yo 2!'
   end
 
 end
