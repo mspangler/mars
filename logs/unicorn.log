@@ -1,0 +1,11 @@
+I, [2014-09-20T13:21:04.227587 #16338]  INFO -- : listening on addr=/tmp/unicorn.mars.sock fd=10
+I, [2014-09-20T13:21:04.228096 #16338]  INFO -- : worker=0 spawning...
+I, [2014-09-20T13:21:04.230483 #16338]  INFO -- : worker=1 spawning...
+I, [2014-09-20T13:21:04.235064 #16341]  INFO -- : worker=0 spawned pid=16341
+I, [2014-09-20T13:21:04.235283 #16341]  INFO -- : Refreshing Gem list
+I, [2014-09-20T13:21:04.238847 #16338]  INFO -- : master process ready
+I, [2014-09-20T13:21:04.247059 #16344]  INFO -- : worker=1 spawned pid=16344
+I, [2014-09-20T13:21:04.247303 #16344]  INFO -- : Refreshing Gem list
+I, [2014-09-20T13:21:04.401076 #16344]  INFO -- : worker=1 ready
+I, [2014-09-20T13:21:04.401681 #16341]  INFO -- : worker=0 ready
+50.26.78.157 - - [20/Sep/2014 13:22:09] "GET / HTTP/1.0" 200 12 0.0262
