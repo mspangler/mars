@@ -19,7 +19,6 @@ class MyApp < Sinatra::Base
       limit: 10,
       sort: 1
     }
-    set :locale, { lang: 'en ' }
   end
 
   get '/' do
@@ -28,14 +27,12 @@ class MyApp < Sinatra::Base
 
   get '/address/:latitude/:longitude' do
     address_data = Geocoder.search([params[:latitude], params[:longitude]])[0].data
-    puts "Address: #{address_data}"
     address_data.to_json
   end
 
   get '/restaurants/:latitude/:longitude' do
     coordinates = { latitude: params[:latitude], longitude: params[:longitude] }
-    restaurants = settings.yelp.search_by_coordinates(coordinates, settings.yelp_params, settings.locale)
-    puts "Restaurants: #{restaurants.businesses.to_json}"
+    restaurants = settings.yelp.search_by_coordinates(coordinates, settings.yelp_params)
     restaurants.businesses.to_json
   end
 
