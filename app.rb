@@ -1,9 +1,3 @@
-require 'rubygems'
-require 'sinatra/base'
-require 'sinatra/reloader'
-require 'slim'
-require 'geocoder'
-require 'yelp'
 
 class MyApp < Sinatra::Base
   register Sinatra::Reloader
