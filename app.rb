@@ -9,7 +9,6 @@ class MyApp < Sinatra::Base
   register Sinatra::Reloader
 
   configure do
-    enable :logging
     set :yelp, Yelp::Client.new({ consumer_key: 'CxIgq_Qmno_4xNqoLCDngQ',
                                   consumer_secret: 'ot8NumqSPNmseSu8m2cWC0fNUD4',
                                   token: 'qgmf7ENPhkzFFNCgcAgMZlImrIoAto7S',
@@ -17,9 +16,10 @@ class MyApp < Sinatra::Base
                                })
     set :yelp_params, {
       term: 'restaurants',
-      limit: 5
+      limit: 10,
+      sort: 1
     }
-    set :locale, { lang: 'en '}
+    set :locale, { lang: 'en ' }
   end
 
   get '/' do
@@ -34,9 +34,9 @@ class MyApp < Sinatra::Base
 
   get '/restaurants/:latitude/:longitude' do
     coordinates = { latitude: params[:latitude], longitude: params[:longitude] }
-    foods = settings.yelp.search_by_coordinates(coordinates, settings.yelp_params, settings.locale)
-    #puts "Restaurants: #{foods.businesses.to_json}"
-    foods.businesses.to_json
+    restaurants = settings.yelp.search_by_coordinates(coordinates, settings.yelp_params, settings.locale)
+    puts "Restaurants: #{restaurants.businesses.to_json}"
+    restaurants.businesses.to_json
   end
 
 end

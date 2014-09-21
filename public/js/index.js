@@ -1,20 +1,22 @@
 $(document).ready(function() {
 
   function callback(position) {
-    var coordinates = [ position.coords.latitude, position.coords.longitude ];
-    showCoordinates(coordinates);
-    findAddress(coordinates);
-    findRestaurants(coordinates);
+    var latitude = position.coords.latitude,
+       longitude = position.coords.longitude;
+
+    showCoordinates(latitude, longitude);
+    findAddress(latitude, longitude);
+    findRestaurants(latitude, longitude);
   }
 
-  function showCoordinates(coordinates) {
-    var latlong = 'Latitude: ' + coordinates[0] + '<br />' +
-                 'Longitude: ' + coordinates[1];
+  function showCoordinates(latitude, longitude) {
+    var latlong = 'Latitude: ' + latitude + '<br />' +
+                 'Longitude: ' + longitude;
     $('#coordinates').html(latlong);
   }
 
-  function findAddress(coordinates) {
-    $.getJSON('/address/' + coordinates[0]  + '/' + coordinates[1], function(data) {
+  function findAddress(latitude, longitude) {
+    $.getJSON('/address/' + latitude  + '/' + longitude, function(data) {
       $('#address').html('Address: ' + data['formatted_address']);
     })
     .fail(function() {
@@ -22,16 +24,20 @@ $(document).ready(function() {
     });
   }
 
-  function findRestaurants(coordinates) {
-    $.getJSON('/restaurants/' + coordinates[0]  + '/' + coordinates[1] , function(data) {
+  function findRestaurants(latitude, longitude) {
+    $.getJSON('/restaurants/' + latitude  + '/' + longitude , function(data) {
       $.each(data, function(index, restaurant) {
         console.log(restaurant.name);
-        $('#restaurants').append('<li><a target="_blank" href="' + restaurant.mobile_url + '">' + restaurant.name + '</a></li>');
+        $('#restaurants').append('<li><a target="_blank" href="' + restaurant.mobile_url + '">' + restaurant.name + ' - ' + getMiles(restaurant.distance).toPrecision(2) + ' miles away</a></li>');
       });
     })
     .fail(function() {
       console.log('findRestaurants: error');
     });
+  }
+
+  function getMiles(meters) {
+    return meters * 0.000621371192;
   }
 
   getCoordinates(callback);
