@@ -28,7 +28,7 @@ $(document).ready(function() {
     $.getJSON('/restaurants/' + latitude  + '/' + longitude , function(data) {
       $.each(data, function(index, restaurant) {
         console.log(restaurant.name);
-        $('#restaurants').append('<li><a target="_blank" href="' + restaurant.mobile_url + '">' + restaurant.name + ' - ' + getMiles(restaurant.distance).toPrecision(2) + ' miles away</a></li>');
+        $('#restaurants').append('<li><a target="_blank" href="' + restaurant.mobile_url + '">' + restaurant.name + '</a> - ' + getMiles(restaurant.distance).toPrecision(2) + ' miles away</li>');
       });
     })
     .fail(function() {
