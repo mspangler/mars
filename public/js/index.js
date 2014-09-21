@@ -1,26 +1,39 @@
 $(document).ready(function() {
 
-  function showPosition(position) {
-    var latlong = 'Latitude: ' + position.coords.latitude + '<br />' +
-                 'Longitude: ' + position.coords.longitude;
-    $('#position').html(latlong);
-    findRestaurants(position.coords.longitude, position.coords.latitude);
+  function callback(position) {
+    var coordinates = [ position.coords.latitude, position.coords.longitude ];
+    showCoordinates(coordinates);
+    findAddress(coordinates);
+    findRestaurants(coordinates);
   }
 
-  function findRestaurants(longitude, latitude) {
-    $.getJSON('/find/' + longitude + '/' + latitude, function(data) {
-      console.log( "success" );
-      $.each(data, function(index, restaurant) {
-        console.log(restaurant.name);
-        $('#yelp').append('<li>' + restaurant.name + ' - <a target="_blank" href="' + restaurant.mobile_url + '">' + restaurant.mobile_url + '</a></li>');
-      });
+  function showCoordinates(coordinates) {
+    var latlong = 'Latitude: ' + coordinates[0] + '<br />' +
+                 'Longitude: ' + coordinates[1];
+    $('#coordinates').html(latlong);
+  }
+
+  function findAddress(coordinates) {
+    $.getJSON('/address/' + coordinates[0]  + '/' + coordinates[1], function(data) {
+      $('#address').html('Address: ' + data['formatted_address']);
     })
     .fail(function() {
-      console.log( "error" );
+      console.log('findAddress: error');
     });
   }
 
-  getLocation(showPosition);
+  function findRestaurants(coordinates) {
+    $.getJSON('/restaurants/' + coordinates[0]  + '/' + coordinates[1] , function(data) {
+      $.each(data, function(index, restaurant) {
+        console.log(restaurant.name);
+        $('#restaurants').append('<li><a target="_blank" href="' + restaurant.mobile_url + '">' + restaurant.name + '</a></li>');
+      });
+    })
+    .fail(function() {
+      console.log('findRestaurants: error');
+    });
+  }
 
+  getCoordinates(callback);
 
 });

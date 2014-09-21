@@ -16,7 +16,7 @@ function showError(error) {
   }
 }
 
-function getLocation(callback) {
+function getCoordinates(callback) {
   if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(callback, showError);
   } else {

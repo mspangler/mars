@@ -2,6 +2,7 @@ require 'rubygems'
 require 'sinatra/base'
 require 'sinatra/reloader'
 require 'slim'
+require 'geocoder'
 require 'yelp'
 
 class MyApp < Sinatra::Base
@@ -25,11 +26,16 @@ class MyApp < Sinatra::Base
     slim :index
   end
 
-  get '/find/:longitude/:latitude' do
-    logger.info "loading data"
+  get '/address/:latitude/:longitude' do
+    address_data = Geocoder.search([params[:latitude], params[:longitude]])[0].data
+    puts "Address: #{address_data}"
+    address_data.to_json
+  end
+
+  get '/restaurants/:latitude/:longitude' do
     coordinates = { latitude: params[:latitude], longitude: params[:longitude] }
     foods = settings.yelp.search_by_coordinates(coordinates, settings.yelp_params, settings.locale)
-    puts ">>> #{foods.businesses.to_json}"
+    #puts "Restaurants: #{foods.businesses.to_json}"
     foods.businesses.to_json
   end
 
