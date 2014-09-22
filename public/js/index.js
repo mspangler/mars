@@ -19,10 +19,7 @@ $(document).ready(function() {
 
   function findAddress(latitude, longitude) {
     $.getJSON('/address/' + latitude  + '/' + longitude, function(data) {
-      $('#address').html('Address: ' + data['formatted_address']);
-    })
-    .fail(function() {
-      console.log('findAddress: error');
+      $('#address').html('Address: ' + data.formatted_address);
     });
   }
 
