@@ -12,7 +12,7 @@ class MyApp < Sinatra::Base
     set :yelp_params, {
       term: 'restaurants',
       limit: 20,
-      sort: 1
+      sort: 0
     }
   end
 
