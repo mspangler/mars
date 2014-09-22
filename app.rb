@@ -10,7 +10,7 @@ class MyApp < Sinatra::Base
                                   token_secret: 'BHQ01dNmKDhVZybvPK3hC_zP0Xg'
                                })
     set :yelp_params, {
-      term: 'food',
+      term: 'restaurants',
       limit: 20,
       sort: 1
     }
