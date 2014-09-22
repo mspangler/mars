@@ -1,3 +1,5 @@
+/** @jsx React.DOM */
+
 $(document).ready(function() {
 
   function callback(position) {
@@ -25,19 +27,21 @@ $(document).ready(function() {
   }
 
   function findRestaurants(latitude, longitude) {
-    $.getJSON('/restaurants/' + latitude  + '/' + longitude , function(data) {
-      $.each(data, function(index, restaurant) {
-        $('#restaurants').append('<li><a target="_blank" href="' + restaurant.mobile_url + '">' + restaurant.name + '</a> - ' +
-                                 getMiles(restaurant.distance).toPrecision(2) + ' miles away</li>');
-      });
-    })
-    .fail(function() {
-      console.log('findRestaurants: error');
-    });
-  }
+    // $.getJSON('/restaurants/' + latitude  + '/' + longitude , function(data) {
+    //   $.each(data, function(index, restaurant) {
+    //     $('#restaurants').append('<li><a target="_blank" href="' + restaurant.mobile_url + '">' + restaurant.name + '</a> - ' +
+    //                              getMiles(restaurant.distance).toPrecision(2) + ' miles away</li>');
+    //   });
+    // })
+    // .fail(function() {
+    //   console.log('findRestaurants: error');
+    // });
 
-  function getMiles(meters) {
-    return meters * 0.000621371192;
+    var url = '/restaurants/' + latitude  + '/' + longitude;
+    React.renderComponent(
+      <RestaurantBox url={url} />,
+      document.getElementById('restaurants')
+    );
   }
 
   getCoordinates(callback);

@@ -4,7 +4,7 @@ html lang='en'
     meta charset='utf-8'
     meta http-equiv='X-UA-Compatible' content='IE=edge'
     meta name='viewport' content='width=device-width, initial-scale=1'
-    title Where are you?
+    title Where To Eat
     link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'
 
   body
@@ -12,17 +12,20 @@ html lang='en'
       div.row
         div.col-xs-12
           h1 Where you at?
-          div#coordinates Getting your coordinates...
-          div#address Getting your address...
+          #coordinates Getting your coordinates...
+          #address Getting your address...
       div.row
         div.col-xs-12
           h1 Food near you!
-          ul#restaurants
+          #restaurants
       div.row
         div.col-xs-12
           img src='images/miniMapLogo.png' alt='Powered by Yelp'
 
+    script src='http://fb.me/react-0.11.2.js'
+    script src='http://fb.me/JSXTransformer-0.11.2.js'
     script src='http://code.jquery.com/jquery-2.1.1.min.js'
     script src='//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js'
     script src='js/geolocation.js'
-    script src='js/index.js'
+    script src='js/restaurants.js' type='text/jsx'
+    script src='js/index.js' type='text/jsx'
