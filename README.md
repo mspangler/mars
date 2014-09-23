@@ -1,6 +1,6 @@
 
-Setup
-=====
+Install
+=======
 1. Install RVM `curl -L https://get.rvm.io | bash -s stable`
 2. Fork project
 3. `cd` into project
