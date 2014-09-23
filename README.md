@@ -2,5 +2,5 @@
 Setup
 =====
 * Install RVM - http://rvm.io/rvm/install
-* run 'bundle install'
+* cd into project & run 'bundle install'
 * run 'rackup' to run locally
