@@ -29,7 +29,6 @@ class MyApp < Sinatra::Base
   get '/restaurants/:latitude/:longitude' do
     coordinates = { latitude: params[:latitude], longitude: params[:longitude] }
     restaurants = settings.yelp.search_by_coordinates(coordinates, settings.yelp_params)
-    logger.info "Found #{restaurants.total} restaurants"
     restaurants.businesses.to_json
   end
 
