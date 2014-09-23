@@ -39,6 +39,8 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    unicorn-worker-killer (0.4.2)
+      unicorn (~> 4)
     yelp (2.0.3)
       faraday (~> 0.8, >= 0.8.0)
       faraday_middleware (~> 0.8, >= 0.8.0)
@@ -54,4 +56,5 @@ DEPENDENCIES
   sinatra-reloader
   slim
   unicorn
+  unicorn-worker-killer
   yelp
