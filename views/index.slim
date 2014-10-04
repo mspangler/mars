@@ -9,28 +9,22 @@ html lang='en'
 
   body
     div.container-fluid
-      div.row style="padding-top: 15px;"
-        div.col-xs-12
-          div.panel.panel-info
-            div.panel-heading
-              div.panel-title
-                h4 Where you at?
-            div.panel-body
-              #coordinates Getting your coordinates...
-              #address Getting your address...
       div.row
         div.col-xs-12
-          div.panel.panel-info
-            div.panel-heading
-              div.panel-title
-                h4 Food near you!
-            div.panel-body
-              div#restaurants.list-group
-            div.panel-footer
-              img src='images/miniMapLogo.png' alt='Powered by Yelp'
+          h1 Where you at?
+          #coordinates Getting your coordinates...
+          #address Getting your address...
+      div.row
+        div.col-xs-12
+          h1 Food near you!
+          div#restaurants.list-group
+      div.row
+        div.col-xs-12
+          img src='images/miniMapLogo.png' alt='Powered by Yelp'
 
     script src='http://code.jquery.com/jquery-2.1.1.min.js'
-    script src='http://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.js'
     script src='//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js'
+    script src='js/lib/hammer.min.js'
+    script src='js/lib/jquery.hammer.js'
     script src='js/geolocation.js'
     script src='js/index.js'
