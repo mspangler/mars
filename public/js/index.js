@@ -26,11 +26,20 @@ $(document).ready(function() {
     });
   }
 
+  function bindClick() {
+    $('.list-group-item').on('click', function(e) {
+      var previous = $(this).closest(".list-group").children(".active");
+      previous.removeClass('active'); // previous list-item
+      $(e.target).addClass('active'); // activated list-item
+    });
+  }
+
   function findRestaurants(latitude, longitude) {
     $.getJSON('/restaurants/' + latitude  + '/' + longitude, function(restaurants) {
       $.each(restaurants, function(index, restaurant) {
         var link = '<a target="_blank" class="list-group-item" href="' + restaurant.mobile_url + '">' + restaurant.name + ' - ' + getMiles(restaurant.distance) + ' miles </a>';
         $('#restaurants').append(link);
+        bindClick();
       });
     });
   }
