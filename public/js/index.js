@@ -37,7 +37,8 @@ $(document).ready(function() {
   function findRestaurants(latitude, longitude) {
     $.getJSON('/restaurants/' + latitude  + '/' + longitude, function(restaurants) {
       $.each(restaurants, function(index, restaurant) {
-        var link = '<a target="_blank" class="list-group-item" href="' + restaurant.mobile_url + '">' + restaurant.name + ' - ' + getMiles(restaurant.distance) + ' miles </a>';
+        var distance = '<span class="badge pull-right">' + getMiles(restaurant.distance) + ' miles</span>';
+        var link = '<a target="_blank" class="list-group-item" href="' + restaurant.mobile_url + '">' + distance + restaurant.name + '</a>';
         $('#restaurants').append(link);
       });
       bindClick();
