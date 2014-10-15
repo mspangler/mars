@@ -1,18 +1,14 @@
 
 $(document).ready(function() {
 
-  function getMiles(meters) {
-    return (meters * 0.000621371192).toPrecision(2);
-  }
-
   function callback(position) {
     var latitude = position.coords.latitude,
        longitude = position.coords.longitude;
 
     showCoordinates(latitude, longitude);
     findAddress(latitude, longitude);
-    findYelpRestaurants(latitude, longitude);
-    findGoogleRestaurants(latitude, longitude);
+    getRestaurants('google', latitude, longitude, parseGoogle);
+    getRestaurants('yelp', latitude, longitude, parseYelp);
   }
 
   function showCoordinates(latitude, longitude) {
@@ -39,24 +35,19 @@ $(document).ready(function() {
     return '<a target="_blank" class="list-group-item" href="' + url + '">' + name + '</a>';
   }
 
-  function findYelpRestaurants(latitude, longitude) {
-    $.getJSON('/yelp/' + latitude  + '/' + longitude, function(restaurants) {
-      $.each(restaurants, function(index, data) {
-        var restaurant = data.hash,
-            distance = '<span class="badge pull-right">' + getMiles(restaurant.distance) + ' miles</span>',
-            link = getLink(restaurant.mobile_url, restaurant.name);
-        $('#yelp').append(link);
-      });
-      bindTapEvent();
-    });
+  function parseGoogle(restaurant) {
+    return getLink(restaurant.url, restaurant.name);
   }
 
-  function findGoogleRestaurants(latitude, longitude) {
-    $.getJSON('/google/' + latitude + '/' + longitude, function(restaurants) {
-      $.each(restaurants, function(index, restaurant) {
-        //console.log(restaurant);
-        var link = getLink(restaurant.url, restaurant.name);
-        $('#google').append(link);
+  function parseYelp(restaurant) {
+    return getLink(restaurant.hash.mobile_url, restaurant.hash.name);
+  }
+
+  function getRestaurants(service, latitude, longitude, parser) {
+    $.getJSON('/' + service + '/' + latitude + '/' + longitude, function(restaurants) {
+      $.each(restaurants, function(index, value) {
+        var link = parser(value);
+        $('#' + service).append(link);
       });
       bindTapEvent();
     });

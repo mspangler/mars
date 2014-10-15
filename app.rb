@@ -49,12 +49,12 @@ class MyApp < Sinatra::Base
     slim :index
   end
 
-  get '/list' do
-    slim :list
+  get '/places/' do
+    slim :'places/index'
   end
 
-  get '/share' do
-    slim :share
+  get '/share/' do
+    slim :'share/index'
   end
 
   get '/address/:latitude/:longitude' do
@@ -63,16 +63,16 @@ class MyApp < Sinatra::Base
     address_data.to_json
   end
 
-  get '/yelp/:latitude/:longitude' do
-    coordinates = { latitude: params[:latitude], longitude: params[:longitude] }
-    restaurants = settings.yelp.search_by_coordinates(coordinates, settings.yelp_params)
-    restaurants.businesses.to_json
-  end
-
   get '/google/:latitude/:longitude' do
     restaurants = settings.google.spots(params[:latitude], params[:longitude], settings.google_params)
     restaurants.to_json
   end
+
+  get '/yelp/:latitude/:longitude' do
+    coordinates = { latitude: params[:latitude], longitude: params[:longitude] }
+    restaurants = settings.yelp.search_by_coordinates(coordinates, settings.yelp_params)
+    restaurants.businesses.to_json
+  end  
 
   private
 
