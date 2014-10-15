@@ -30,7 +30,7 @@ class MyApp < Sinatra::Base
     enable :logging
     set :google, GooglePlaces::Client.new('AIzaSyCSYD8Tn3sOi5b1m6RWkJBy5QIKABp3dtE')
     set :google_params, {
-      :types => [ 'restaurant' ],
+      :types => [ 'restaurant', 'bar' ],
       :rankby => 'distance'
     }
     set :yelp, Yelp::Client.new({ :consumer_key => 'CxIgq_Qmno_4xNqoLCDngQ',
