@@ -59,14 +59,24 @@ class MyApp < Sinatra::Base
 
   get '/address/:latitude/:longitude' do
     address_data = Geocoder.search([params[:latitude], params[:longitude]])[0].data
-    logger.info "Current Address: #{address_data['formatted_address']}"
+    #logger.info "Current Address: #{address_data['formatted_address']}"
     address_data.to_json
   end
 
   get '/yelp/:latitude/:longitude' do
     coordinates = { latitude: params[:latitude], longitude: params[:longitude] }
     restaurants = settings.yelp.search_by_coordinates(coordinates, settings.yelp_params)
+    restaurants.businesses.to_json
+  end
 
+  get '/google/:latitude/:longitude' do
+    restaurants = settings.google.spots(params[:latitude], params[:longitude], settings.google_params)
+    restaurants.to_json
+  end
+
+  private
+
+  def save_restaurant(data)
     # restaurant = Restaurant.create(
     #   yelp_id: 'abc123',
     #   note: 'test from mark',
@@ -83,13 +93,6 @@ class MyApp < Sinatra::Base
     #     created_at: DateTime.now
     #   }
     # )
-
-    restaurants.businesses.to_json
-  end
-
-  get '/google/:latitude/:longitude' do
-    restaurants = settings.google.spots(params[:latitude], params[:longitude], settings.google_params)
-    restaurants.to_json
   end
 
 end

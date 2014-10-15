@@ -35,12 +35,16 @@ $(document).ready(function() {
     });
   }
 
+  function getLink(url, name) {
+    return '<a target="_blank" class="list-group-item" href="' + url + '">' + name + '</a>';
+  }
+
   function findYelpRestaurants(latitude, longitude) {
     $.getJSON('/yelp/' + latitude  + '/' + longitude, function(restaurants) {
       $.each(restaurants, function(index, data) {
         var restaurant = data.hash,
             distance = '<span class="badge pull-right">' + getMiles(restaurant.distance) + ' miles</span>',
-            link = '<a target="_blank" class="list-group-item" href="' + restaurant.mobile_url + '">' + restaurant.name + '</a>';
+            link = getLink(restaurant.mobile_url, restaurant.name);
         $('#yelp').append(link);
       });
       bindTapEvent();
@@ -50,8 +54,8 @@ $(document).ready(function() {
   function findGoogleRestaurants(latitude, longitude) {
     $.getJSON('/google/' + latitude + '/' + longitude, function(restaurants) {
       $.each(restaurants, function(index, restaurant) {
-        console.log(restaurant);
-        var link = '<a target="_blank" class="list-group-item" href="' + restaurant.url + '">' + restaurant.name + '</a>';
+        //console.log(restaurant);
+        var link = getLink(restaurant.url, restaurant.name);
         $('#google').append(link);
       });
       bindTapEvent();
