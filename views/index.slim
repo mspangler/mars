@@ -1,30 +1,11 @@
-doctype 5
-html lang='en'
-  head
-    meta charset='utf-8'
-    meta http-equiv='X-UA-Compatible' content='IE=edge'
-    meta name='viewport' content='width=device-width, initial-scale=1'
-    title Where To Eat
-    link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'
-
-  body
-    div.container-fluid
-      div.row
-        div.col-xs-12
-          h1 Where you at?
-          #coordinates Getting your coordinates...
-          #address Getting your address...
-      div.row
-        div.col-xs-12
-          h1 Food near you!
-          div#restaurants.list-group
-      div.row
-        div.col-xs-12
-          img src='images/miniMapLogo.png' alt='Powered by Yelp'
-
-    script src='http://code.jquery.com/jquery-2.1.1.min.js'
-    script src='//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js'
-    script src='js/lib/hammer.min.js'
-    script src='js/lib/jquery.hammer.js'
-    script src='js/geolocation.js'
-    script src='js/index.js'
+div.container-fluid
+  div.row
+    div.col-xs-12.text-center
+      p
+        a href='list' class='btn btn-primary btn-lg active' role='button'
+          span class='glyphicon glyphicon-search'
+          | &nbsp;Find
+      p
+        a href='share' class='btn btn-primary btn-lg active' role='button'
+          span class='glyphicon glyphicon-star'
+          | &nbsp;Share

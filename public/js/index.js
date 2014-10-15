@@ -11,7 +11,8 @@ $(document).ready(function() {
 
     showCoordinates(latitude, longitude);
     findAddress(latitude, longitude);
-    findRestaurants(latitude, longitude);
+    findYelpRestaurants(latitude, longitude);
+    findGoogleRestaurants(latitude, longitude);
   }
 
   function showCoordinates(latitude, longitude) {
@@ -26,7 +27,7 @@ $(document).ready(function() {
     });
   }
 
-  function bindClick() {
+  function bindTapEvent() {
     $('.list-group-item').hammer().on('tap', function(e) {
       var previous = $(this).closest(".list-group").children(".active");
       previous.removeClass('active'); // previous list-item
@@ -34,14 +35,26 @@ $(document).ready(function() {
     });
   }
 
-  function findRestaurants(latitude, longitude) {
-    $.getJSON('/restaurants/' + latitude  + '/' + longitude, function(restaurants) {
-      $.each(restaurants, function(index, restaurant) {
-        var distance = '<span class="badge pull-right">' + getMiles(restaurant.distance) + ' miles</span>';
-        var link = '<a target="_blank" class="list-group-item" href="' + restaurant.mobile_url + '">' + distance + restaurant.name + '</a>';
-        $('#restaurants').append(link);
+  function findYelpRestaurants(latitude, longitude) {
+    $.getJSON('/yelp/' + latitude  + '/' + longitude, function(restaurants) {
+      $.each(restaurants, function(index, data) {
+        var restaurant = data.hash,
+            distance = '<span class="badge pull-right">' + getMiles(restaurant.distance) + ' miles</span>',
+            link = '<a target="_blank" class="list-group-item" href="' + restaurant.mobile_url + '">' + restaurant.name + '</a>';
+        $('#yelp').append(link);
       });
-      bindClick();
+      bindTapEvent();
+    });
+  }
+
+  function findGoogleRestaurants(latitude, longitude) {
+    $.getJSON('/google/' + latitude + '/' + longitude, function(restaurants) {
+      $.each(restaurants, function(index, restaurant) {
+        console.log(restaurant);
+        var link = '<a target="_blank" class="list-group-item" href="' + restaurant.url + '">' + restaurant.name + '</a>';
+        $('#google').append(link);
+      });
+      bindTapEvent();
     });
   }
 

@@ -4,8 +4,10 @@ require 'sinatra/reloader'
 require 'slim'
 require 'geocoder'
 require 'yelp'
+require 'google_places'
 require 'unicorn'
 require 'unicorn/worker_killer'
+require 'mongoid'
 
 # --- Start of unicorn worker killer code ---
 
@@ -22,6 +24,10 @@ oom_max = (260) * (1024**2)
 use Unicorn::WorkerKiller::Oom, oom_min, oom_max
 
 # --- End of unicorn worker killer code ---
+
+configure do
+  Mongoid.load!("config/mongoid.yml", :development)
+end
 
 require File.expand_path '../app.rb', __FILE__
 
