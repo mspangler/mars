@@ -33,10 +33,10 @@ class MyApp < Sinatra::Base
       :types => [ 'restaurant' ],
       :rankby => 'distance'
     }
-    set :yelp, Yelp::Client.new({ consumer_key: 'CxIgq_Qmno_4xNqoLCDngQ',
-                                  consumer_secret: 'ot8NumqSPNmseSu8m2cWC0fNUD4',
-                                  token: 'qgmf7ENPhkzFFNCgcAgMZlImrIoAto7S',
-                                  token_secret: 'BHQ01dNmKDhVZybvPK3hC_zP0Xg'
+    set :yelp, Yelp::Client.new({ :consumer_key => 'CxIgq_Qmno_4xNqoLCDngQ',
+                                  :consumer_secret => 'ot8NumqSPNmseSu8m2cWC0fNUD4',
+                                  :token => 'qgmf7ENPhkzFFNCgcAgMZlImrIoAto7S',
+                                  :token_secret => 'BHQ01dNmKDhVZybvPK3hC_zP0Xg'
                                })
     set :yelp_params, {
       :term => 'restaurants',
