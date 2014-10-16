@@ -3,21 +3,21 @@ class Location
   include Mongoid::Document
   field :latitude, type: Float
   field :longitude, type: Float
-  field :country, type: String
-  field :state, type: String
   field :city, type: String
+  field :state, type: String
+  field :country, type: String
 end
 
 class Metadata
   include Mongoid::Document
-  field :list_index, type: Integer
   field :user, type: String
+  field :list_index, type: Integer
   field :created_at, type: DateTime
 end
 
 class Restaurant
   include Mongoid::Document
-  field :yelp_id, type: String
+  field :name, type: String
   field :note, type: String
   embeds_one :location, class_name: 'Location'
   embeds_one :metadata, class_name: 'Metadata'
@@ -72,27 +72,27 @@ class MyApp < Sinatra::Base
     coordinates = { latitude: params[:latitude], longitude: params[:longitude] }
     restaurants = settings.yelp.search_by_coordinates(coordinates, settings.yelp_params)
     restaurants.businesses.to_json
-  end  
+  end
 
   private
 
   def save_restaurant(data)
-    # restaurant = Restaurant.create(
-    #   yelp_id: 'abc123',
-    #   note: 'test from mark',
-    #   location: {
-    #     latitude: params[:latitude],
-    #     longitude: params[:longitude],
-    #     country: 'US',
-    #     state: 'TX',
-    #     city: 'Amarillo'
-    #   },
-    #   metadata: {
-    #     list_index: 1,
-    #     user: 'mark',
-    #     created_at: DateTime.now
-    #   }
-    # )
+     restaurant = Restaurant.create(
+       name: 'restaurant name',
+       note: 'test from mark',
+       location: {
+         latitude: data[:latitude],
+         longitude: data[:longitude],
+         city: 'Amarillo',
+         state: 'TX',
+         country: 'US'
+       },
+       metadata: {
+         user: 'mark',
+         list_index: 1,
+         created_at: DateTime.now
+       }
+     )
   end
 
 end

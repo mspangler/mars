@@ -26,7 +26,7 @@ use Unicorn::WorkerKiller::Oom, oom_min, oom_max
 # --- End of unicorn worker killer code ---
 
 configure do
-  Mongoid.load!("config/mongoid.yml", :development)
+  Mongoid.load!('config/mongoid.yml', :development)
 end
 
 require File.expand_path '../app.rb', __FILE__
