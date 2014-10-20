@@ -18,7 +18,7 @@ function showError(error) {
 
 function getCoordinates(callback) {
   if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(callback, showError);
+      navigator.geolocation.getCurrentPosition(callback, showError, {maximumAge:600000});
   } else {
       console.log('Geolocation is not supported by this browser.');
   }
