@@ -56,12 +56,10 @@ class MyApp < Sinatra::Base
   get '/address/:latitude/:longitude' do
     location = Geocoder.search([params[:latitude], params[:longitude]])[0]
     session[:location] = location
-    logger.info ">>>>>> #{session[:location]}"
     location.data.to_json
   end
 
   get '/google' do
-    logger.info "******** #{session[:location]}"
     places = settings.google.spots(session[:location].latitude,
                                    session[:location].longitude,
                                    settings.google_params)
