@@ -61,6 +61,7 @@ class MyApp < Sinatra::Base
   end
 
   get '/google' do
+    logger.info "******** #{session[:location]}"
     places = settings.google.spots(session[:location].latitude,
                                    session[:location].longitude,
                                    settings.google_params)
