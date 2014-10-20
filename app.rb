@@ -15,7 +15,7 @@ class Metadata
   field :created_at, type: DateTime
 end
 
-class Restaurant
+class Place
   include Mongoid::Document
   field :name, type: String
   field :note, type: String
@@ -27,21 +27,12 @@ class MyApp < Sinatra::Base
   register Sinatra::Reloader
 
   configure do
+    enable :sessions
     enable :logging
     set :google, GooglePlaces::Client.new('AIzaSyCSYD8Tn3sOi5b1m6RWkJBy5QIKABp3dtE')
     set :google_params, {
       :types => [ 'restaurant', 'bar' ],
       :rankby => 'distance'
-    }
-    set :yelp, Yelp::Client.new({ :consumer_key => 'CxIgq_Qmno_4xNqoLCDngQ',
-                                  :consumer_secret => 'ot8NumqSPNmseSu8m2cWC0fNUD4',
-                                  :token => 'qgmf7ENPhkzFFNCgcAgMZlImrIoAto7S',
-                                  :token_secret => 'BHQ01dNmKDhVZybvPK3hC_zP0Xg'
-                               })
-    set :yelp_params, {
-      :term => 'restaurants',
-      :limit => 20,
-      :sort => 1
     }
   end
 
@@ -49,36 +40,38 @@ class MyApp < Sinatra::Base
     slim :index
   end
 
+  get '/discover/' do
+    slim :'discover/index'
+  end
+
   get '/places/' do
     slim :'places/index'
   end
 
-  get '/share/' do
-    slim :'share/index'
+  get '/places/share/:index/:id' do
+    @list_index = params[:index]
+    @place = settings.google.spot(params[:id])
+    slim :'places/share'
   end
 
   get '/address/:latitude/:longitude' do
-    address_data = Geocoder.search([params[:latitude], params[:longitude]])[0].data
-    #logger.info "Current Address: #{address_data['formatted_address']}"
-    address_data.to_json
+    location = Geocoder.search([params[:latitude], params[:longitude]])[0]
+    session[:location] = location
+    location.data.to_json
   end
 
-  get '/google/:latitude/:longitude' do
-    restaurants = settings.google.spots(params[:latitude], params[:longitude], settings.google_params)
-    restaurants.to_json
-  end
-
-  get '/yelp/:latitude/:longitude' do
-    coordinates = { latitude: params[:latitude], longitude: params[:longitude] }
-    restaurants = settings.yelp.search_by_coordinates(coordinates, settings.yelp_params)
-    restaurants.businesses.to_json
+  get '/google' do
+    places = settings.google.spots(session[:location].latitude,
+                                   session[:location].longitude,
+                                   settings.google_params)
+    places.to_json
   end
 
   private
 
-  def save_restaurant(data)
-     restaurant = Restaurant.create(
-       name: 'restaurant name',
+  def save_place(data)
+     place = Place.create(
+       name: 'place name',
        note: 'test from mark',
        location: {
          latitude: data[:latitude],

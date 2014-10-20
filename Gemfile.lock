@@ -14,10 +14,6 @@ GEM
     bson (2.3.0)
     builder (3.2.2)
     connection_pool (2.0.0)
-    faraday (0.9.0)
-      multipart-post (>= 1.2, < 3)
-    faraday_middleware (0.9.1)
-      faraday (>= 0.7.4, < 0.10)
     geocoder (1.2.5)
     google_places (0.26.0)
       httparty (~> 0.13.1)
@@ -39,7 +35,6 @@ GEM
       optionable (~> 0.2.0)
     multi_json (1.10.1)
     multi_xml (0.5.5)
-    multipart-post (2.0.0)
     optionable (0.2.0)
     origin (2.1.1)
     rack (1.5.2)
@@ -48,7 +43,6 @@ GEM
     rack-test (0.6.2)
       rack (>= 1.0)
     raindrops (0.13.0)
-    simple_oauth (0.2.0)
     sinatra (1.4.5)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -76,10 +70,6 @@ GEM
       raindrops (~> 0.7)
     unicorn-worker-killer (0.4.2)
       unicorn (~> 4)
-    yelp (2.0.3)
-      faraday (~> 0.8, >= 0.8.0)
-      faraday_middleware (~> 0.8, >= 0.8.0)
-      simple_oauth (~> 0.2, >= 0.2.0)
 
 PLATFORMS
   ruby
@@ -94,4 +84,3 @@ DEPENDENCIES
   slim
   unicorn
   unicorn-worker-killer
-  yelp

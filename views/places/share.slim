@@ -1,0 +1,16 @@
+div.container-fluid
+  div.row
+    div.col-xs-12
+      h3= @place.name
+      p
+        = "list index: #{@list_index}"
+        br
+        = "latitude: #{session[:location].latitude}"
+        br
+        = "longitude: #{session[:location].longitude}"
+        br
+        = "city: #{session[:location].city}"
+        br
+        = "state: #{session[:location].state}"
+        br
+        = "country: #{session[:location].country}"
