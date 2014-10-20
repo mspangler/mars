@@ -18,7 +18,7 @@ listen "/tmp/unicorn.mars.sock"
 
 # Number of processes
 # worker_processes 4
-worker_processes 2
+worker_processes 1
 
 # Time-out
 timeout 30
