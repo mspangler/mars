@@ -27,8 +27,7 @@ class MyApp < Sinatra::Base
   register Sinatra::Reloader
 
   configure do
-    enable :sessions
-    enable :logging
+    enable :sessions, :logging
     set :google, GooglePlaces::Client.new('AIzaSyCSYD8Tn3sOi5b1m6RWkJBy5QIKABp3dtE')
     set :google_params, {
       :types => [ 'restaurant', 'bar' ],
@@ -57,6 +56,7 @@ class MyApp < Sinatra::Base
   get '/address/:latitude/:longitude' do
     location = Geocoder.search([params[:latitude], params[:longitude]])[0]
     session[:location] = location
+    logger.info ">>>>>> #{session[:location]}"
     location.data.to_json
   end
 
