@@ -76,7 +76,7 @@ class MyApp < Sinatra::Base
   private
 
   def save_place(data)
-    place = Place.create(
+    Place.create(
       place_id: data[:place_id],
       name: data[:place_name],
       note: data[:note],

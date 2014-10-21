@@ -1,7 +1,7 @@
 div.container-fluid
   div.row
     div.col-xs-12
-      h3 List the shared places
-      - @places.each do |place|
-        p= "#{place.name}"
-        br
+      h3 Shared places
+      ul
+        - @places.each do |place|
+          li= "#{place.name} - #{place.location.city}, #{place.location.state} #{place.location.country}"
