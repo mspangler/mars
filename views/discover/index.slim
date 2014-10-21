@@ -2,3 +2,6 @@ div.container-fluid
   div.row
     div.col-xs-12
       h3 List the shared places
+      - @places.each do |place|
+        p= "#{place.name}"
+        br

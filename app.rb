@@ -17,6 +17,7 @@ end
 
 class Place
   include Mongoid::Document
+  field :place_id, type: String
   field :name, type: String
   field :note, type: String
   embeds_one :location, class_name: 'Location'
@@ -40,6 +41,7 @@ class MyApp < Sinatra::Base
   end
 
   get '/discover/' do
+    @places = Place.all
     slim :'discover/index'
   end
 
@@ -51,6 +53,11 @@ class MyApp < Sinatra::Base
     @list_index = params[:index]
     @place = settings.google.spot(params[:id])
     slim :'places/share'
+  end
+
+  post '/places/share/' do
+    save_place(params)
+    redirect to('/discover/')
   end
 
   get '/address/:latitude/:longitude' do
@@ -69,22 +76,23 @@ class MyApp < Sinatra::Base
   private
 
   def save_place(data)
-     place = Place.create(
-       name: 'place name',
-       note: 'test from mark',
-       location: {
-         latitude: data[:latitude],
-         longitude: data[:longitude],
-         city: 'Amarillo',
-         state: 'TX',
-         country: 'US'
-       },
-       metadata: {
-         user: 'mark',
-         list_index: 1,
-         created_at: DateTime.now
-       }
-     )
+    place = Place.create(
+      place_id: data[:place_id],
+      name: data[:place_name],
+      note: data[:note],
+      location: {
+        latitude: session[:location].latitude,
+        longitude: session[:location].longitude,
+        city: session[:location].city,
+        state: session[:location].state,
+        country: session[:location].country
+      },
+      metadata: {
+        user: 'mark',
+        list_index: data[:list_index],
+        created_at: DateTime.now
+      }
+    )
   end
 
 end
