@@ -1,7 +1,0 @@
-div.container-fluid
-  div.row
-    div.col-xs-12
-      h3 Shared places
-      ul
-        - @places.each do |place|
-          li= "#{place.name} - #{place.location.city}, #{place.location.state} #{place.location.country}"
