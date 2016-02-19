@@ -41,21 +41,21 @@
 #
 # Global options
 # --------------
- # set :ssh_options, {
- #   keys: %w(/home/mars/.ssh/id_rsa),
- #   forward_agent: false,
- #   auth_methods: %w(password)
- # }
+ set :ssh_options, {
+   keys: %w(/Users/mark/.ssh/id_rsa),
+   forward_agent: false,
+   auth_methods: %w(publickey)
+ }
 #
 # The server-based syntax can be used to override options:
 # ------------------------------------
 server '192.241.180.134',
   user: 'mars',
-  roles: %w{web app},
-  ssh_options: {
-    user: 'mars', # overrides user setting above
-    keys: %w(/home/mars/.ssh/id_rsa),
-    forward_agent: false,
-    auth_methods: %w(publickey password)
-    # password: 'please use keys'
-  }
+  roles: %w{web app}
+  # ssh_options: {
+  #   user: 'mars', # overrides user setting above
+  #   keys: %w(/Users/mark/.ssh/id_rsa),
+  #   forward_agent: false,
+  #   auth_methods: %w(publickey password)
+  #   # password: 'please use keys'
+  # }
