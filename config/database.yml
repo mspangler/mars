@@ -5,7 +5,7 @@ default: &default
   database: mars
   username: mars
   password: GQMRccZ3GnE9EJ
-  host: 127.0.0.1
+  host: 192.168.1.19
   port: 3306
   pool: 5
   timeout: 5000
