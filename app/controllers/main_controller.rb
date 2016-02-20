@@ -1,4 +1,4 @@
-class MainController < ActionController::Base
+class MainController < ApplicationController
 
 
 end
