@@ -8,7 +8,7 @@ function geoFindMe() {
   };
 
   if (navigator.geolocation) {
-    console.log('checking geolocation...');
+    console.log('Getting geolocation...');
     navigator.geolocation.getCurrentPosition(success, error, geoOptions);
   } else {
     console.log("Geolocation services are not supported by your web browser.");
