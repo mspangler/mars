@@ -1,0 +1,12 @@
+div.container-fluid
+  div.row
+    div.col-xs-12
+      h3= @place.name
+      form role='form' action='/places/share/' method='post'
+        input type='hidden' name='place_id' value="#{@place.place_id}"
+        input type='hidden' name='place_name' value="#{@place.name}"
+        input type='hidden' name='list_index' value="#{@list_index}"
+        .form-group
+          label for='note' Note
+          textarea.form-control rows='3' name='note'
+        button.btn.btn-primary type='submit' Share
